@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dapur Mama — Bubur Manado & Bubur Ayam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #F7EFDA;
+    --cream-2: #FFFBF1;
+    --dark: #2B2116;
+    --dark-soft: #4A3B2C;
+    --green: #4C6B39;
+    --green-dark: #35492A;
+    --gold: #C98A2C;
+    --gold-light: #E8B255;
+    --red: #A83B2E;
+    --line: rgba(43,33,22,0.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--dark);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--dark);
+    letter-spacing:-0.01em;
+  }
+  .hand{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 28px;
+    border-radius:100px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--green); color:var(--cream-2); box-shadow:0 6px 0 var(--green-dark);}
+  .btn-primary:hover{box-shadow:0 8px 0 var(--green-dark);}
+  .btn-primary:active{transform:translateY(2px); box-shadow:0 3px 0 var(--green-dark);}
+  .btn-ghost{border-color:var(--dark); color:var(--dark);}
+  .btn-ghost:hover{background:var(--dark); color:var(--cream);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,239,218,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1140px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:22px;
+  }
+  .logo-mark{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--green);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--cream); font-size:18px;
+  }
+  .nav-links{display:flex; gap:32px; font-weight:600; font-size:15px;}
+  .nav-links a{position:relative; padding:4px 0;}
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background:var(--gold); transition:width .25s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:flex; align-items:center; gap:16px;}
+  .menu-toggle{display:none; background:none; border:none; font-size:26px; cursor:pointer; color:var(--dark);}
+
+  @media (max-width:820px){
+    .nav-links{
+      position:fixed; top:70px; left:0; right:0;
+      background:var(--cream-2); flex-direction:column; gap:0;
+      padding:8px 24px; border-bottom:1px solid var(--line);
+      transform:translateY(-150%); transition:transform .3s ease; opacity:0;
+    }
+    .nav-links.open{transform:translateY(0); opacity:1;}
+    .nav-links a{display:block; padding:14px 0; border-bottom:1px solid var(--line);}
+    .menu-toggle{display:block;}
+    .nav-cta .btn-primary{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:90px 24px 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    max-width:1140px; margin:0 auto;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--green-dark); background:rgba(76,107,57,0.1);
+    padding:7px 14px; border-radius:100px; margin-bottom:20px;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 60px);
+    line-height:1.04;
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--gold);
+  }
+  .hero p.lead{
+    font-size:18px; color:var(--dark-soft); max-width:480px; margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:36px;}
+  .hero-stats{display:flex; gap:32px; flex-wrap:wrap;}
+  .hero-stat b{display:block; font-family:'Fraunces',serif; font-size:26px;}
+  .hero-stat span{font-size:13px; color:var(--dark-soft);}
+
+  .hero-visual{position:relative; display:flex; justify-content:center;}
+  .stamp{
+    position:absolute; top:-18px; right:-6px; width:110px; height:110px;
+    transform:rotate(12deg);
+    z-index:3;
+  }
+  .steam{
+    position:absolute; opacity:0.55;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) scaleX(1); opacity:0;}
+    15%{opacity:.6;}
+    50%{transform:translateY(-22px) scaleX(1.15);}
+    100%{transform:translateY(-46px) scaleX(0.9); opacity:0;}
+  }
+  .steam path{animation:rise 3.2s ease-in-out infinite;}
+  .steam path:nth-child(2){animation-delay:0.9s;}
+  .steam path:nth-child(3){animation-delay:1.8s;}
+
+  /* ---------- STORY STRIP ---------- */
+  .story{
+    background:var(--dark);
+    color:var(--cream);
+    padding:56px 24px;
+  }
+  .story-inner{
+    max-width:1140px; margin:0 auto;
+    display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center;
+  }
+  .story-quote{
+    font-family:'Caveat', cursive; font-size:30px; font-weight:700;
+    color:var(--gold-light); line-height:1.35; max-width:640px;
+  }
+  .story-avatar{
+    width:88px; height:88px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--red));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:32px; color:var(--cream); flex-shrink:0;
+    border:3px solid var(--gold-light);
+  }
+  .story-name{font-weight:700; margin-top:10px; font-size:14px; color:var(--cream);}
+  .story-role{font-size:12px; color:rgba(247,239,218,0.6);}
+
+  /* ---------- SECTION HEADS ---------- */
+  section{padding:90px 24px;}
+  .sec-head{max-width:640px; margin:0 auto 52px; text-align:center;}
+  .sec-head .eyebrow{background:rgba(201,138,44,0.15); color:var(--gold);}
+  .sec-head h2{font-size:clamp(30px,4vw,42px); margin-bottom:14px;}
+  .sec-head p{color:var(--dark-soft); font-size:16px;}
+
+  /* ---------- MENU ---------- */
+  .menu-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:32px;
+    max-width:1140px; margin:0 auto;
+  }
+  .menu-card{
+    background:var(--cream-2);
+    border-radius:28px;
+    border:1px solid var(--line);
+    overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .menu-card:hover{transform:translateY(-6px); box-shadow:0 24px 40px rgba(43,33,22,0.12);}
+  .menu-art{
+    height:230px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .menu-art.manado{background:linear-gradient(160deg, #EFE6C8, #DCE7C4);}
+  .menu-art.ayam{background:linear-gradient(160deg, #FBF3DE, #F3E1B6);}
+  .menu-body{padding:28px 30px 30px;}
+  .menu-tag{
+    font-size:12px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  }
+  .tag-manado{color:var(--green-dark);}
+  .tag-ayam{color:var(--gold);}
+  .menu-title-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin:8px 0 12px; gap:12px;
+  }
+  .menu-title-row h3{font-size:25px;}
+  .price{
+    font-family:'Fraunces',serif; font-weight:700; font-size:22px;
+    color:var(--red); white-space:nowrap; position:relative;
+  }
+  .menu-desc{color:var(--dark-soft); font-size:15px; margin-bottom:18px;}
+  .menu-chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .chip{
+    font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:100px;
+    background:rgba(43,33,22,0.06); color:var(--dark-soft);
+  }
+  .menu-foot{display:flex; gap:12px;}
+  .menu-foot .btn{flex:1; justify-content:center; padding:12px 18px; font-size:14px;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    max-width:1140px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border-radius:28px; overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .contact-left{
+    background:var(--green); color:var(--cream);
+    padding:48px 44px;
+  }
+  .contact-left h3{color:var(--cream); font-size:28px; margin-bottom:12px;}
+  .contact-left p{color:rgba(247,239,218,0.85); margin-bottom:30px; font-size:15px;}
+  .contact-item{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:22px;
+  }
+  .contact-icon{
+    width:38px; height:38px; border-radius:50%; background:rgba(247,239,218,0.15);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:17px;
+  }
+  .contact-item b{display:block; font-size:14.5px;}
+  .contact-item span{font-size:13.5px; color:rgba(247,239,218,0.75);}
+  .contact-right{
+    background:var(--cream-2); padding:48px 44px;
+    display:flex; flex-direction:column; justify-content:center; gap:16px;
+  }
+  .contact-right .hand{font-size:26px; color:var(--gold); margin-bottom:6px;}
+  .wa-btn{
+    background:#2E7D5B; color:#fff; justify-content:center; width:100%;
+    box-shadow:0 6px 0 #1f5b41; font-size:16px; padding:16px;
+  }
+  .hours-table{width:100%; border-collapse:collapse; margin-top:8px;}
+  .hours-table tr{border-bottom:1px solid var(--line);}
+  .hours-table td{padding:10px 0; font-size:14px;}
+  .hours-table td:last-child{text-align:right; font-weight:700; color:var(--dark-soft);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--dark); color:rgba(247,239,218,0.7);
+    padding:40px 24px; text-align:center; font-size:13.5px;
+  }
+  footer .logo{justify-content:center; color:var(--cream); margin-bottom:10px;}
+  footer .foot-links{display:flex; gap:22px; justify-content:center; margin-top:14px; flex-wrap:wrap;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr; text-align:center;}
+    .hero-actions, .hero-stats{justify-content:center;}
+    .hero p.lead{margin-left:auto; margin-right:auto;}
+    .story-inner{grid-template-columns:1fr; text-align:center; justify-items:center;}
+    .menu-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo"><span class="logo-mark">🥣</span>Dapur Mama</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#kontak" class="btn btn-primary">Pesan Sekarang</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">☰</button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">🔥 Dimasak fresh tiap pagi</span>
+        <h1>Bubur hangat rasa <em>rumah</em>, dari dapur mama ke meja Anda.</h1>
+        <p class="lead">Dua resep turun-temurun — Bubur Manado yang kaya rempah dan Bubur Ayam yang lembut gurih — dimasak dengan bahan segar setiap hari, tanpa MSG berlebihan.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">Lihat Menu &amp; Harga</a>
+          <a href="#kontak" class="btn btn-ghost">Hubungi Kami</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <svg class="stamp" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="56" fill="none" stroke="#A83B2E" stroke-width="3" stroke-dasharray="4 3"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#A83B2E" stroke-width="1.5"/>
+          <text x="60" y="42" text-anchor="middle" fill="#A83B2E" font-family="Fraunces, serif" font-size="10" font-weight="700">RESEP ASLI</text>
+          <text x="60" y="66" text-anchor="middle" fill="#A83B2E" font-family="Fraunces, serif" font-size="13" font-weight="700">KELUARGA</text>
+          <text x="60" y="86" text-anchor="middle" fill="#A83B2E" font-family="Fraunces, serif" font-size="10" font-weight="700">SEJAK DULU</text>
+        </svg>
+
+        <svg class="steam" width="220" height="70" viewBox="0 0 220 70" style="top:10px; left:50%; transform:translateX(-50%); position:absolute;">
+          <path d="M60 60 Q50 40 62 26 Q72 14 62 0" fill="none" stroke="#4A3B2C" stroke-width="4" stroke-linecap="round"/>
+          <path d="M110 60 Q100 40 112 26 Q122 14 112 0" fill="none" stroke="#4A3B2C" stroke-width="4" stroke-linecap="round"/>
+          <path d="M160 60 Q150 40 162 26 Q172 14 162 0" fill="none" stroke="#4A3B2C" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+
+        <svg width="420" height="380" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="210" cy="330" rx="150" ry="18" fill="rgba(43,33,22,0.08)"/>
+          <path d="M60 210 a150 90 0 0 0 300 0 Z" fill="#E4D9B8"/>
+          <ellipse cx="210" cy="210" rx="150" ry="46" fill="#FCF6E3"/>
+          <ellipse cx="210" cy="206" rx="128" ry="36" fill="#F2E7C4"/>
+          <ellipse cx="150" cy="198" rx="26" ry="10" fill="#4C6B39"/>
+          <ellipse cx="200" cy="190" rx="20" ry="8" fill="#6B8A4E"/>
+          <ellipse cx="255" cy="200" rx="22" ry="9" fill="#C98A2C"/>
+          <ellipse cx="290" cy="212" rx="18" ry="7" fill="#A83B2E"/>
+          <ellipse cx="180" cy="216" rx="16" ry="6" fill="#E8B255"/>
+          <ellipse cx="235" cy="222" rx="14" ry="6" fill="#4C6B39"/>
+          <path d="M60 210 a150 8 0 0 0 300 0" fill="none" stroke="#D8C68F" stroke-width="4"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story">
+    <div class="story-inner">
+      <div style="text-align:center;">
+        <div class="story-avatar">D&amp;M</div>
+        <div class="story-name">Feby Ririmasse</div>
+        <div class="story-role">Pemilik Dapur Mama</div>
+      </div>
+      <p class="story-quote">"Setiap mangkuk kami masak seperti untuk keluarga sendiri — pelan, sabar, dan pakai bumbu asli, bukan jalan pintas."</p>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="sec-head">
+      <span class="eyebrow">Menu Kami</span>
+      <h2>Dua Mangkuk, Satu Dapur</h2>
+      <p>Pilih rasa favorit Anda — pedas kaya rempah khas Sulawesi Utara, atau gurih lembut yang menenangkan.</p>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- Bubur Manado -->
+      <article class="menu-card">
+        <div class="menu-art manado">
+          <svg width="200" height="150" viewBox="0 0 200 150">
+            <ellipse cx="100" cy="128" rx="90" ry="14" fill="rgba(43,33,22,0.07)"/>
+            <ellipse cx="100" cy="80" rx="85" ry="46" fill="#FCF6E3"/>
+            <ellipse cx="100" cy="76" rx="70" ry="34" fill="#E9DFB4"/>
+            <ellipse cx="65" cy="68" rx="18" ry="8" fill="#4C6B39"/>
+            <ellipse cx="95" cy="58" rx="16" ry="7" fill="#6B8A4E"/>
+            <ellipse cx="130" cy="70" rx="17" ry="7" fill="#C98A2C"/>
+            <ellipse cx="150" cy="82" rx="14" ry="6" fill="#A83B2E"/>
+            <ellipse cx="80" cy="88" rx="13" ry="5" fill="#E8B255"/>
+            <ellipse cx="115" cy="92" rx="12" ry="5" fill="#4C6B39"/>
+            <circle cx="60" cy="55" r="4" fill="#3F5A2E"/>
+            <circle cx="140" cy="60" r="4" fill="#3F5A2E"/>
+          </svg>
+        </div>
+        <div class="menu-body">
+          <span class="menu-tag tag-manado">Khas Sulawesi Utara</span>
+          <div class="menu-title-row">
+            <h3>Bubur Manado</h3>
+            <span class="price">Rp 20.000</span>
+          </div>
+          <p class="menu-desc">Bubur dengan labu kuning, jagung manis, kangkung, dan kemangi — disajikan hangat dengan sambal dabu-dabu segar.</p>
+          <div class="menu-chips">
+            <span class="chip">🌶️ Bisa pedas / tidak</span>
+            <span class="chip">🥬 Sayur segar tiap hari</span>
+            <span class="chip">🚫 Ikan Asin</span>
+          </div>
+          <div class="menu-foot">
+            <a class="btn btn-primary" href="https://wa.me/6282198778499?text=Halo%2C%20saya%20mau%20pesan%20Bubur%20Manado" target="_blank" rel="noopener">Pesan via WA</a>
+            <a class="btn btn-ghost" href="#kontak">Tanya Dulu</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bubur Ayam -->
+      <article class="menu-card">
+        <div class="menu-art ayam">
+          <svg width="200" height="150" viewBox="0 0 200 150">
+            <ellipse cx="100" cy="128" rx="90" ry="14" fill="rgba(43,33,22,0.07)"/>
+            <ellipse cx="100" cy="80" rx="85" ry="46" fill="#FCF6E3"/>
+            <ellipse cx="100" cy="76" rx="70" ry="34" fill="#FBEFCB"/>
+            <ellipse cx="70" cy="70" rx="20" ry="9" fill="#E8B255"/>
+            <ellipse cx="115" cy="62" rx="16" ry="7" fill="#C98A2C"/>
+            <path d="M55 85 q10 -6 22 0" stroke="#4C6B39" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M95 92 q10 -6 22 0" stroke="#4C6B39" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M130 80 q10 -6 22 0" stroke="#4C6B39" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="140" cy="90" r="10" fill="#D9A441"/>
+            <circle cx="150" cy="70" r="4" fill="#A83B2E"/>
+            <circle cx="60" cy="95" r="4" fill="#A83B2E"/>
+          </svg>
+        </div>
+        <div class="menu-body">
+          <span class="menu-tag tag-ayam">Favorit Keluarga</span>
+          <div class="menu-title-row">
+            <h3>Bubur Ayam</h3>
+            <span class="price">Rp 12.000</span>
+          </div>
+          <p class="menu-desc">Bubur nasi lembut dengan suwiran ayam, suwiran telur, dan kuah kaldu gurih.</p>
+          <div class="menu-chips">
+            <span class="chip">🍗 Ayam asli</span>
+            <span class="chip">🥣 Tekstur lembut & creamy</span>
+            <span class="chip">👶 Ramah untuk anak</span>
+          </div>
+          <div class="menu-foot">
+            <a class="btn btn-primary" href="https://wa.me/6282198778499?text=Halo%2C%20saya%20mau%20pesan%20Bubur%20Ayam" target="_blank" rel="noopener">Pesan via WA</a>
+            <a class="btn btn-ghost" href="#kontak">Tanya Dulu</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="kontak">
+    <div class="sec-head">
+      <span class="eyebrow">Hubungi Kami</span>
+      <h2>Pesan Sekarang, Hangat-Hangat</h2>
+      <p>Order lewat WhatsApp untuk respon paling cepat, atau datang langsung ke lokasi kami.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h3>Dapur Mama</h3>
+        <p>Bubur Manado siap sabtu.</p> 
+        <p>Bubur Ayam rumahan siap setiap hari.</p>
+
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><b>Alamat</b><br><span>Kusu-kusu sereh, Tempat air isi ulang.</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><b>Telepon / WhatsApp</b><br><span>0821-9877-8499</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div><b>Email</b><br><span>febyririmasse49@gmail.com</span></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📷</div>
+          <div><b>Instagram</b><br><span>@ebot_ibo25</span></div>
+        </div>
+      </div>
+
+      <div class="contact-right">
+        <div class="hand">Yuk, pesan bubur hangatnya!</div>
+        <p style="color:var(--dark-soft); font-size:14.5px; margin-bottom:6px;">Klik tombol di bawah, chat kami langsung terbuka di WhatsApp.</p>
+        <a class="btn btn-primary wa-btn" href="https://wa.me/6282198778499?text=Halo%20Dapur%20Mama%2C%20saya%20mau%20tanya%20menu" target="_blank" rel="noopener">💬 Chat via WhatsApp</a>
+
+        <table class="hours-table">
+          <tr><td>Senin – Jumat</td><td>06.30 – 10.00</td></tr>
+          <tr><td>Sabtu</td><td>06.00 – 08.30</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="#top" class="logo"><span class="logo-mark">🥣</span>Dapur Mama</a>
+  <p>Bubur Manado & Bubur Ayam rumahan — dimasak dengan cinta, sejak dulu.</p>
+  <div class="foot-links">
+    <a href="#menu">Menu</a>
+    <a href="#kontak">Kontak</a>
+  </div>
+  <p style="margin-top:18px; opacity:0.6;">© 2026 Dapur Mama. Semua resep asli keluarga.</p>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>
